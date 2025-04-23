@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.PaperItemMapper">
+    <select id="getQuestion" resultType="com.smxy.daydayup.pojo.ItemBank">
+        SELECT
+            q.*
+        FROM
+            sm_papers eq
+                JOIN sm_item_bank q ON ( eq.item_id = q.item_id )
+        WHERE
+            eq.paper_id =#{paperId}
+    </select>
+    <delete id="removeByPaperId" parameterType="java.lang.Integer">
+        DELETE FROM sm_papers
+        WHERE paper_id=#{paperId}
+    </delete>
+</mapper>

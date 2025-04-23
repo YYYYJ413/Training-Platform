@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/wlpx?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
+#    url: jdbc:mysql://192.168.51.93:3306/wlpx?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
+    username: root
+#    password: Amy20040701
+    password: Huang2024
+    type: com.alibaba.druid.pool.DruidDataSource
+
+
+component:
+  osa:
+    localdisk:
+      basePath: D:/tmp/work

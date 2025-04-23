@@ -1,0 +1,2 @@
+webpackJsonp([11],{nxG5:function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var s={render:function(){this.$createElement;this._self._c;return this._m(0)},staticRenderFns:[function(){var t=this.$createElement,e=this._self._c||t;return e("div",{attrs:{id:"statistics"}},[e("p",[this._v("统计")])])}]};var i=n("VU/8")({name:"Statistics"},s,!1,function(t){n("rtQw")},"data-v-f6afbbde",null);e.default=i.exports},rtQw:function(t,e){}});
+//# sourceMappingURL=11.b7d768114894e97fa0e4.js.map

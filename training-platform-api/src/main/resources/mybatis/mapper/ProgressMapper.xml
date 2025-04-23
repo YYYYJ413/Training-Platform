@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.ProgressMapper">
+
+    <select id="getIsFinished" resultType="boolean">
+        SELECT is_finished
+        FROM sm_progress
+        WHERE user_id = #{userId}
+        AND course_id = #{courseId}
+        AND chapter_id = #{chapterId}
+    </select>
+
+    <select id="findAll" resultMap="ProgressResultMap">
+        SELECT * FROM sm_progress
+    </select>
+
+    <select id="getFinishedChapterContents" resultType="String">
+        SELECT c.chapter_content
+        FROM sm_progress p
+                 JOIN sm_chapters c ON p.chapter_id = c.chapter_id
+        WHERE p.user_id = #{userId} AND p.is_finished = 1
+    </select>
+
+    <select id="getFinishedCount" resultType="int">
+        SELECT COUNT(*)
+        FROM sm_progress
+        WHERE user_id = #{userId} AND is_finished = 1
+    </select>
+
+    <select id="getProgress" resultType="com.smxy.daydayup.pojo.Progress">
+        select * from sm_progress
+        WHERE user_id = #{userId}
+        AND course_id = #{courseId}
+        AND chapter_id = #{chapterId}
+    </select>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.ExamMapper">
+    <resultMap id="ExamDetailResultMap" type="com.smxy.daydayup.pojo.dto.ExamDetail">
+        <id property="examId" column="exam_id"/>
+        <result property="examName" column="exam_name"/>
+        <result property="paperId" column="paper_id"/>
+        <result property="paperName" column="paper_name"/>
+        <result property="courseId" column="course_id"/>
+        <result property="retakeAllowed" column="retake_allowed"/>
+        <result property="passMark" column="pass_mark"/>
+        <result property="duration" column="duration"/>
+        <result property="questionDisorder" column="question_disorder"/>
+        <result property="optionDisorder" column="option_disorder"/>
+        <result property="courseName" column="course_name"/>
+        <result property="courseCover" column="course_cover"/>
+        <result property="courseDescription" column="course_description"/>
+        <result property="courseType" column="course_type"/>
+        <result property="courseTeacher" column="course_teacher"/>
+        <result property="timeCreate" column="time_create"/>
+        <result property="timeModify" column="time_modify"/>
+    </resultMap>
+    <select id="getMyExam" resultMap="ExamDetailResultMap">
+        SELECT c.*,e.exam_id,e.exam_name,e.retake_allowed,e.pass_mark,e.duration,e.paper_id,e.time_create,e.time_modify
+        FROM sm_user_courses uc join sm_courses c on uc.course_id=c.course_id
+            join sm_exams e on e.course_id=c.course_id
+        WHERE uc.user_id=#{userId}
+    </select>
+    <select id="getAllExam" resultMap="ExamDetailResultMap">
+        SELECT e.*,c.*,pi.paper_name
+        FROM sm_exams e join sm_courses c on e.course_id=c.course_id
+            join sm_papers_info pi on pi.paper_id=e.paper_id
+    </select>
+
+    <select id="selectById" resultType="com.smxy.daydayup.pojo.Exam">
+        SELECT * FROM sm_exams WHERE exam_id = #{examId}
+    </select>
+</mapper>

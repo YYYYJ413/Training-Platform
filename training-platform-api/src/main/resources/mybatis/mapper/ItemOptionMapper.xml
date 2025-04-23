@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.ItemOptionMapper">
+    <select id="selectByItemId" resultType="com.smxy.daydayup.pojo.ItemOption">
+        SELECT * FROM sm_item_options WHERE item_id = #{itemId}
+    </select>
+</mapper>

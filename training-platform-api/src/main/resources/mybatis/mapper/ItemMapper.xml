@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.ItemMapper">
+
+    <select id="getPaperIdByExamId" resultType="int">
+        SELECT paper_id FROM sm_exams WHERE exam_id = #{examId}
+    </select>
+
+    <select id="getItemIdsByPaperId" resultType="int">
+        SELECT item_id FROM sm_papers WHERE paper_id = #{paperId}
+    </select>
+
+    <select id="getItemById" resultType="com.smxy.daydayup.pojo.Item">
+        SELECT * FROM sm_item_bank WHERE item_id = #{itemId}
+    </select>
+
+    <select id="getOptionsByItemId" resultType="com.smxy.daydayup.pojo.ItemOption">
+        SELECT * FROM sm_item_options WHERE item_id = #{itemId}
+    </select>
+
+</mapper>

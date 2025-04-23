@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.ItemBankMapper">
+    <resultMap id="questionInfo" autoMapping="true" type="com.smxy.daydayup.pojo.vo.ItemBankInfoVo">
+        <id property="itemId" column="item_id"/>
+        <collection property="itemOptions" javaType="java.util.List" ofType="com.smxy.daydayup.pojo.ItemOption">
+            <id property="optionId" column="option_id"/>
+            <result property="optionContent" column="option_content"/>
+            <result property="optionAnswer" column="option_answer"/>
+            <result property="itemId" column="item_id"/>
+        </collection>
+    </resultMap>
+    <select id="itemBankInfo" resultMap="questionInfo">
+        SELECT
+            q.*,
+            qi.option_id as option_id,
+            qi.option_content as option_content,
+            qi.option_answer as option_answer
+        FROM
+            sm_item_bank q left join sm_item_options qi on q.item_id=qi.item_id
+        WHERE
+            q.item_id = #{itemId}
+    </select>
+    <select id="examQuestionInfo" resultMap="questionInfo">
+        SELECT
+            q.*,
+            qi.option_id,
+            qi.option_content,
+            qi.option_answer
+        FROM
+            sm_papers p
+                JOIN sm_item_bank q ON (p.item_id = q.item_id)
+                left join sm_item_options  qi on (q.item_id=qi.item_id)
+        WHERE
+            p.paper_id = #{paperId}
+    </select>
+    <select id="examQuestion" resultType="com.smxy.daydayup.pojo.ItemBank">
+        SELECT
+            q.*
+        FROM
+            sm_papers paper
+                JOIN sm_item_bank q ON ( paper.item_id = q.item_id )
+        WHERE
+            paper.paper_id =#{paperId}
+    </select>
+    <select id="bankQuestionInfo" resultMap="questionInfo">
+        SELECT
+            q.*,
+            qi.option_id,
+            qi.option_content,
+            qi.option_answer
+        FROM
+            sm_bank_info bi
+                JOIN sm_item_bank q ON (bi.bank_id = q.bank_id)
+                left join sm_item_options  qi on (q.item_id=qi.item_id)
+        WHERE
+            bi.bank_id = #{bank_id}
+    </select>
+    <select id="courseQuestion" resultType="com.smxy.daydayup.pojo.ItemBank">
+        SELECT
+            q.*
+        FROM
+            sm_bank_info bi
+                JOIN sm_item_bank q ON (bi.bank_id = q.bank_id)
+        WHERE
+            bi.course_id = #{courseId}
+    </select>
+</mapper>

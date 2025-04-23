@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.AssessMapper">
+    <insert id="insertAssess">
+        INSERT INTO sm_assess (user_id, course_id, assess_score, assess_content, time_create, time_modify)
+        VALUES (#{userId}, #{courseId}, #{assessScore}, #{assessContent}, NOW(), NOW())
+    </insert>
+
+    <select id="findScoresByCourseId" resultType="java.math.BigDecimal">
+        SELECT AVG(assess_score)
+        FROM sm_assess
+        WHERE course_id = #{courseId}
+    </select>
+
+    <select id="findAllAssessInfo" resultType="com.smxy.daydayup.pojo.Assess">
+        SELECT assess_id, user_id, course_id, assess_score, assess_content, time_create, time_modify
+        FROM sm_assess
+    </select>
+</mapper>

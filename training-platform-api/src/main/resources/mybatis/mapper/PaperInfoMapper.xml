@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.PaperInfoMapper">
+
+    <select id="getPaperList" resultType="com.smxy.daydayup.pojo.dto.PaperInfoDetail">
+        select pi.*,c.course_name
+        from sm_papers_info pi join sm_courses c on pi.course_id=c.course_id
+    </select>
+</mapper>

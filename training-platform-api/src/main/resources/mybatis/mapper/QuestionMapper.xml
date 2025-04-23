@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.QuestionMapper">
+<select id="getQuestionsByUserIdAndCourseId" resultType="com.smxy.daydayup.pojo.Question">
+    SELECT question_id, user_id, course_id, question_content, question_answer, is_solve
+    FROM sm_question
+    WHERE user_id = #{userId} AND course_id = #{courseId}
+</select>
+
+<insert id="insertQuestion">
+    INSERT INTO sm_question (user_id, course_id, question_content, is_solve, ask_time)
+    VALUES (#{userId}, #{courseId}, #{questionContent}, 0, NOW())
+</insert>
+
+<delete id="deleteQuestion">
+    DELETE FROM sm_question WHERE question_id = #{questionId}
+</delete>
+
+<select id="getAllQuestions" resultType="com.smxy.daydayup.pojo.QuestionDTO">
+    SELECT q.question_id, q.user_id, u.user_name, q.course_id, c.course_name,
+           q.question_content, q.question_answer, q.is_solve, q.ask_time,
+           q.answer_time, q.time_create, q.time_modify
+    FROM sm_question q
+             JOIN sm_users u ON q.user_id = u.user_id
+             JOIN sm_courses c ON q.course_id = c.course_id
+</select>
+
+<update id="updateQuestionAnswer">
+    UPDATE sm_question
+    SET question_answer = #{questionAnswer}
+    ,is_solve = 1
+    WHERE question_id = #{questionId}
+</update>
+
+</mapper>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.smxy.daydayup.pojo.Course">
+    <id column="course_id" property="courseId" />
+    <result column="course_name" property="courseName" />
+    <result column="course_cover" property="courseCover" />
+    <result column="course_description" property="courseDescription" />
+    <result column="course_type" property="courseType" />
+    <result column="course_teacher" property="courseTeacher" />
+    <result column="time_create" property="timeCreate" />
+    <result column="time_modify" property="timeModify" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    course_id, course_name, course_cover, course_description, course_type, course_teacher, time_create, time_modify
+  </sql>
+
+  <select id="findCourse" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sm_courses
+    where course_id = #{courseId}
+  </select>
+
+  <insert id="insert" keyColumn="course_id" keyProperty="courseId" parameterType="com.smxy.daydayup.pojo.Course" useGeneratedKeys="true">
+    insert into sm_courses (course_id, course_name, course_cover, course_description, course_type, course_teacher, time_create, time_modify)
+    values (#{courseId}, #{courseName}, #{courseCover}, #{courseDescription}, #{courseType}, #{courseTeacher}, Now(), Now())
+  </insert>
+
+  <insert id="insertSelective" keyColumn="course_id" keyProperty="courseId" parameterType="com.smxy.daydayup.pojo.Course" useGeneratedKeys="true">
+    insert into sm_courses
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseName != null and courseName != ''">
+        course_name,
+      </if>
+      <if test="courseCover != null and courseCover != ''">
+        course_cover,
+      </if>
+      <if test="courseDescription != null and courseDescription != ''">
+        course_description,
+      </if>
+      <if test="courseType != null">
+        course_type,
+      </if>
+      <if test="courseTeacher != null and courseTeacher != ''">
+        course_teacher,
+      </if>
+      <if test="timeCreate != null">
+        time_create,
+      </if>
+      <if test="timeModify != null">
+        time_modify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseName != null and courseName != ''">
+        #{courseName},
+      </if>
+      <if test="courseCover != null and courseCover != ''">
+        #{courseCover},
+      </if>
+      <if test="courseDescription != null and courseDescription != ''">
+        #{courseDescription},
+      </if>
+      <if test="courseType != null">
+        #{courseType},
+      </if>
+      <if test="courseTeacher != null and courseTeacher != ''">
+        #{courseTeacher},
+      </if>
+      <if test="timeCreate != null">
+        #{timeCreate},
+      </if>
+      <if test="timeModify != null">
+        #{timeModify},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.smxy.daydayup.pojo.Course">
+    update sm_courses
+    <set>
+      <if test="courseName != null and courseName != ''">
+        course_name = #{courseName},
+      </if>
+      <if test="courseCover != null and courseCover != ''">
+        course_cover = #{courseCover},
+      </if>
+      <if test="courseDescription != null and courseDescription != ''">
+        course_description = #{courseDescription},
+      </if>
+      <if test="courseType != null">
+        course_type = #{courseType},
+      </if>
+      <if test="courseTeacher != null and courseTeacher != ''">
+        course_teacher = #{courseTeacher},
+      </if>
+      <if test="timeModify != null">
+        time_modify = #{timeModify},
+      </if>
+    </set>
+    where course_id = #{courseId}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.smxy.daydayup.pojo.Course">
+    update sm_courses
+    set course_name = #{courseName},
+        course_cover = #{courseCover},
+        course_description = #{courseDescription},
+        course_type = #{courseType},
+        course_teacher = #{courseTeacher},
+        time_modify = NOW()
+    where course_id = #{courseId}
+  </update>
+
+<!--用户学的课程-->
+  <select id="selectCourse" resultMap="BaseResultMap">
+    select DISTINCT *
+    from sm_user_courses join sm_courses on sm_courses.course_id = sm_user_courses.course_id
+    where user_id=#{userId}
+  </select>
+
+  <select id="selectprofessorCourse" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sm_courses
+    where course_id in (select course_id from sm_user_courses where user_id=#{userId})
+  </select>
+
+  <select id="selectByPrimaryKey" resultType="com.smxy.daydayup.pojo.Course">
+    select * from sm_courses where course_id=#{courseId}
+  </select>
+
+<!--  所有课程-->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sm_courses
+  </select>
+  <select id="selectCode" resultType="string">
+    select course_name from study_course where course_code = #{code}
+  </select>
+
+  <!--删除课程  -->
+  <delete id="deleteCourse">
+    DELETE FROM sm_courses WHERE course_id = #{courseId};
+  </delete>
+</mapper>

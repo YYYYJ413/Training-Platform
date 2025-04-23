@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.smxy.daydayup.pojo.User">
+    <id column="user_id" property="userId" />
+    <result column="user_name" property="userName" />
+    <result column="user_number" property="userNumber" />
+    <result column="contact_info" property="contactInfo" />
+    <result column="user_password" property="userPassword" />
+    <result column="type_id" property="typeId" />
+    <result column="department" property="department" />
+    <result column="user_gender" property="userGender" />
+    <result column="user_img" property="userImg" />
+    <result column="time_create" property="timeCreate" />
+    <result column="time_modify" property="timeModify" />
+  </resultMap>
+
+
+  <!-- 定义基础列列表 -->
+  <sql id="Base_Column_List">
+    user_id, user_name, user_number, contact_info, user_password, type_id, department,
+    user_gender, user_img, time_create, time_modify
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from sm_users
+    where user_id = #{userId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from sm_users
+    where user_id = #{userId}
+  </delete>
+  <insert id="insert" parameterType="com.smxy.daydayup.pojo.User">
+    <!--@mbg.generated-->
+    insert into sm_users (user_id, user_name, user_number, contact_info, user_password, type_id,
+    department, user_gender, user_img, time_create, time_modify)
+    values (#{userId}, #{userName}, #{userNumber}, #{contactInfo}, #{userPassword}, #{typeId},
+    #{department}, #{userGender}, #{userImg}, #{timeCreate}, #{timeModify})
+  </insert>
+  <insert id="insertSelective" parameterType="com.smxy.daydayup.pojo.User">
+    <!--@mbg.generated-->
+    insert into study_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name,
+      </if>
+      <if test="userNumber != null and userNumber != ''">
+        user_number,
+      </if>
+      <if test="contactInfo != null and contactInfo != ''">
+        contact_info,
+      </if>
+      <if test="userPassword != null and userPassword != ''">
+        user_password,
+      </if>
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="department != null and department != ''">
+        department,
+      </if>
+      <if test="userGender != null">
+        user_gender,
+      </if>
+      <if test="userImg != null and userImg != ''">
+        user_img,
+      </if>
+      <if test="timeCreate != null">
+        time_create,
+      </if>
+      <if test="timeModify != null">
+        time_modify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null and userId != ''">
+        #{userId},
+      </if>
+      <if test="userName != null and userName != ''">
+        #{userName},
+      </if>
+      <if test="userNumber != null and userNumber != ''">
+        #{userNumber},
+      </if>
+      <if test="contactInfo != null and contactInfo != ''">
+        #{contactInfo},
+      </if>
+      <if test="userPassword != null and userPassword != ''">
+        #{userPassword},
+      </if>
+      <if test="typeId != null">
+        #{typeId},
+      </if>
+      <if test="department != null and department != ''">
+        #{department},
+      </if>
+      <if test="userGender != null">
+        #{userGender},
+      </if>
+      <if test="userImg != null and userImg != ''">
+        #{userImg},
+      </if>
+      <if test="timeCreate != null">
+        #{timeCreate},
+      </if>
+      <if test="timeModify != null">
+        #{timeModify},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smxy.daydayup.pojo.User">
+    <!--@mbg.generated-->
+    update sm_users
+    <set>
+      <if test="userName != null and userName != ''">
+        user_name = #{userName},
+      </if>
+      <if test="userNumber != null and userNumber != ''">
+        user_number = #{userNumber},
+      </if>
+      <if test="contactInfo != null and contactInfo != ''">
+        contact_info = #{contactInfo},
+      </if>
+      <if test="userPassword != null and userPassword != ''">
+        user_password = #{userPassword},
+      </if>
+      <if test="typeId != null">
+        type_id = #{typeId},
+      </if>
+      <if test="department != null and department != ''">
+        department = #{department},
+      </if>
+      <if test="userGender != null">
+        user_gender = #{userGender},
+      </if>
+      <if test="userImg != null and userImg != ''">
+        user_img = #{userImg},
+      </if>
+      <if test="timeCreate != null">
+        time_create = #{timeCreate},
+      </if>
+      <if test="timeModify != null">
+        time_modify = #{timeModify},
+      </if>
+    </set>
+    where user_id = #{userId}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.smxy.daydayup.pojo.User">
+    update sm_users
+    set user_name = #{userName},
+        user_number = #{userNumber},
+        contact_info = #{contactInfo},
+        user_password = #{userPassword},
+        type_id = #{typeId},
+        department = #{department},
+        user_gender = #{userGender},
+        user_img = #{userImg},
+        time_create = #{timeCreate},
+        time_modify = #{timeModify}
+    where user_id = #{userId}
+  </update>
+<!--  <select id="checkTel" resultType="int">
+    select count(*)
+    from study_user
+    where user_tel = #{userTel}
+  </select>
+  <select id="checkEmail" resultType="int">
+    select count(*)
+    from study_user
+    where user_email = #{userEmail}
+  </select>
+  <select id="checkNumber" resultType="int">
+    select count(*)
+    from study_user
+    where user_number = #{userNumber}
+    and school_id = #{schoolId}
+  </select>-->
+  <select id="userLogin" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sm_users
+    <where>
+      <if test="userNumber != null and userNumber != ''">
+        and user_number = #{userNumber}
+      </if>
+      <if test="typeId != null">
+        and type_id = #{typeId}
+      </if>
+    </where>
+  </select>
+  <insert id="userRegister">
+    insert into sm_users
+      (user_id, user_number, user_name,user_password,user_gender,type_id, time_create, time_modify)
+    values (#{userId}, #{userNumber},#{userName}, #{userPassword},#{userGender},#{typeId}, #{timeCreate}, #{timeModify})
+  </insert>
+</mapper>

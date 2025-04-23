@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.BankInfoMapper">
+
+    <!-- 插入题库信息 -->
+    <insert id="insert" parameterType="com.smxy.daydayup.pojo.BankInfo">
+        INSERT INTO sm_bank_info (course_id,bank_name)
+        VALUES (#{courseId}, #{bankName})
+    </insert>
+
+    <!-- 根据ID查询题库信息 -->
+    <select id="selectById" parameterType="int" resultType="com.smxy.daydayup.pojo.BankInfo">
+        SELECT * FROM sm_bank_info WHERE bank_id = #{bankId}
+    </select>
+
+    <!-- 查询所有题库信息 -->
+    <select id="selectAll" resultType="com.smxy.daydayup.pojo.BankInfo">
+        SELECT * FROM sm_bank_info
+    </select>
+
+    <!-- 根据课程ID查询题库信息 -->
+    <select id="selectByCourseId" parameterType="int" resultType="com.smxy.daydayup.pojo.BankInfo">
+        SELECT * FROM sm_bank_info WHERE course_id = #{courseId}
+    </select>
+
+    <!-- 更新题库信息 -->
+    <update id="updateById" parameterType="com.smxy.daydayup.pojo.BankInfo">
+        UPDATE sm_bank_info
+        SET course_id = #{courseId},
+            bank_name=#{bankName}
+        WHERE bank_id = #{bankId}
+    </update>
+
+    <!-- 删除题库信息 -->
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM sm_bank_info WHERE bank_id = #{bankId}
+    </delete>
+
+    <!-- 根据课程ID删除题库信息 -->
+    <delete id="deleteByCourseId" parameterType="int">
+        DELETE FROM sm_bank_info WHERE course_id = #{courseId}
+    </delete>
+
+</mapper>

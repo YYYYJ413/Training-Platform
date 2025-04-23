@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.BgUserMapper">
+
+    <select id="selectAllUsers" resultType="com.smxy.daydayup.pojo.User">
+        SELECT * FROM sm_users
+    </select>
+
+    <insert id="insertUser" parameterType="com.smxy.daydayup.pojo.User">
+        INSERT INTO sm_users (user_id, user_name, user_number, contact_info, user_password, type_id, user_gender, user_img, department, time_create, time_modify)
+        VALUES (#{userId}, #{userName}, #{userNumber}, #{contactInfo}, #{userPassword}, #{typeId}, #{userGender}, #{userImg}, #{department}, Now(), Now())
+    </insert>
+
+    <delete id="deleteUser" parameterType="String">
+        DELETE FROM sm_users WHERE user_id = #{userId}
+    </delete>
+
+    <update id="updateUser" >
+        UPDATE sm_users
+        <set>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="userNumber != null">user_number = #{userNumber},</if>
+            <if test="contactInfo != null">contact_info = #{contactInfo},</if>
+            <if test="userPassword != null">user_password = #{userPassword},</if>
+            <if test="typeId != null">type_id = #{typeId},</if>
+            <if test="userGender != null">user_gender = #{userGender},</if>
+            <if test="userImg != null">user_img = #{userImg},</if>
+            <if test="department != null">department = #{department},</if>
+            <if test="timeModify != null">time_modify = Now(),</if>
+        </set>
+        WHERE user_id = #{userId}
+    </update>
+
+    <select id="findById" resultType="com.smxy.daydayup.pojo.User">
+        SELECT * FROM sm_users WHERE user_id = #{userId}
+    </select>
+
+</mapper>

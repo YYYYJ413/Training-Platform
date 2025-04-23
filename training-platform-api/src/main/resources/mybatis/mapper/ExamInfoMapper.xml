@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.ExamInfoMapper">
+    <select id="getExamInfoById" resultType="com.smxy.daydayup.pojo.ExamInfo">
+        SELECT * FROM sm_exams WHERE exam_id = #{examId}
+    </select>
+
+    <select id="getMaxRetake" resultType="int">
+        SELECT COALESCE(MAX(retake), 0) FROM sm_score WHERE exam_id = #{examId} AND user_id = #{userId}
+    </select>
+
+    <select id="getMaxUserScore" resultType="float">
+        SELECT COALESCE(MAX(user_score),-1) FROM sm_score WHERE exam_id = #{examId} AND user_id = #{userId}
+    </select>
+
+    <select id="getUserOfExam" resultType="com.smxy.daydayup.pojo.dto.UserScoreDTO">
+        SELECT
+            u.user_id,
+            u.user_name,
+            u.user_number,
+            u.contact_info,
+            u.department,
+            MAX(s.user_score) AS highest_score,
+            COUNT(s.score_id) AS exam_count
+        FROM
+            sm_score s
+                JOIN
+            sm_users u ON s.user_id = u.user_id
+        WHERE
+            s.exam_id = #{examId}
+        GROUP BY
+            u.user_id;
+    </select>
+</mapper>

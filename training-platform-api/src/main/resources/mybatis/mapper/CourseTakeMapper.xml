@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.CourseTakeMapper">
+  <resultMap id="CourseTakeBaseResultMap" type="com.smxy.daydayup.pojo.CourseTake">
+    <id column="user_id" property="userId" />
+    <result column="course_id" property="courseId" />
+    <result column="time_create" property="timeCreate" />
+    <result column="time_modify" property="timeModify" />
+  </resultMap>
+
+  <sql id="CourseTakeBase_Column_List">
+    user_id, course_id, time_create, time_modify
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="CourseTakeBaseResultMap">
+    select
+    <include refid="CourseTakeBase_Column_List" />
+    from sm_user_courses
+    where user_id = #{userId} and course_id = #{courseId}
+  </select>
+
+  <delete id="deleteByPrimaryKey">
+    delete from sm_user_courses
+    where user_id = #{userId} and course_id = #{courseId}
+  </delete>
+
+  <insert id="insert" parameterType="com.smxy.daydayup.pojo.CourseTake" useGeneratedKeys="true">
+    insert into sm_user_courses (user_id, course_id, time_create, time_modify)
+    values (#{userId}, #{courseId}, #{timeCreate}, #{timeModify})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.smxy.daydayup.pojo.CourseTake" useGeneratedKeys="true">
+    insert into sm_user_courses
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="timeCreate != null">
+        time_create,
+      </if>
+      <if test="timeModify != null">
+        time_modify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null and userId != ''">
+        #{userId},
+      </if>
+      <if test="courseId != null">
+        #{courseId},
+      </if>
+      <if test="timeCreate != null">
+        #{timeCreate},
+      </if>
+      <if test="timeModify != null">
+        #{timeModify},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.smxy.daydayup.pojo.CourseTake">
+    update sm_user_courses
+    <set>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId},
+      </if>
+      <if test="courseId != null">
+        course_id = #{courseId},
+      </if>
+      <if test="timeCreate != null">
+        time_create = #{timeCreate},
+      </if>
+      <if test="timeModify != null">
+        time_modify = #{timeModify},
+      </if>
+    </set>
+    where user_id = #{userId} and course_id = #{courseId}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.smxy.daydayup.pojo.CourseTake">
+    update sm_user_courses
+    set user_id = #{userId},
+        course_id = #{courseId},
+        time_create = #{timeCreate},
+        time_modify = #{timeModify}
+    where user_id = #{userId} and course_id = #{courseId}
+  </update>
+
+  <insert id="insertStudyCourse" parameterType="com.smxy.daydayup.pojo.dto.StudyCourseInfo">
+    insert into sm_user_courses(user_id, course_id, time_create, time_modify)
+    values(#{userId}, #{courseId},#{timeCreate},#{timeModify})
+  </insert>
+
+
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.UanswerMapper">
+    <select id="getUanswersByUserAndExam" resultType="com.smxy.daydayup.pojo.Uanswer">
+        SELECT ue.uexam_id, ue.user_id, ue.exam_id, ue.item_id, ue.option_id, ue.answer,
+               ue.time_create, ue.time_modify,
+               ib.item_content, ib.item_type, ib.item_score,
+               io.option_content
+        FROM sm_user_exams ue
+                 JOIN sm_item_bank ib ON ue.item_id = ib.item_id
+                 LEFT JOIN sm_item_options io ON ue.option_id = io.option_id
+        WHERE ue.user_id = #{userId} AND ue.exam_id = #{examId} AND ue.retake=#{retake}
+    </select>
+
+</mapper>

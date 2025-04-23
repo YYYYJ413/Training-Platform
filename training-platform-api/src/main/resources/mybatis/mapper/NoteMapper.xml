@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smxy.daydayup.mapper.NoteMapper">
+
+    <resultMap id="NoteResultMap" type="com.smxy.daydayup.pojo.Note">
+        <result property="noteId" column="note_id" />
+        <result property="userId" column="user_id" />
+        <result property="courseId" column="course_id" />
+        <result property="chapterId" column="chapter_id" />
+        <result property="noteContent" column="note_content" />
+        <result property="noteTime" column="note_time" />
+        <result property="timeCreate" column="time_create" />
+        <result property="timeModify" column="time_modify" />
+    </resultMap>
+
+    <select id="getNotes" resultMap="NoteResultMap">
+        SELECT note_id, user_id, course_id, chapter_id, note_content, note_time, time_create, time_modify
+        FROM sm_note
+        WHERE user_id = #{userId}
+          AND course_id = #{courseId}
+          AND chapter_id = #{chapterId}
+    </select>
+
+    <insert id="createNote">
+        INSERT INTO sm_note (user_id, course_id, chapter_id, note_time, note_content, time_create, time_modify)
+        VALUES (#{userId}, #{courseId}, #{chapterId}, #{noteTime}, #{noteContent}, NOW(), NOW())
+    </insert>
+
+    <delete id="deleteNoteById">
+        DELETE FROM sm_note WHERE note_id = #{noteId}
+    </delete>
+
+    <update id="updateNoteContent">
+        UPDATE sm_note
+        SET note_content = #{newContent}, time_modify = NOW()
+        WHERE note_id = #{noteId}
+    </update>
+</mapper>
+
