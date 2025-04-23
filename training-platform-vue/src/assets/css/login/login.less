@@ -1,0 +1,113 @@
+@import "../position.less";
+@import "userLogin";
+@import "adminLogin";
+@import "sign";
+
+.login {
+  background: url("../../img/login/loginBg.png") no-repeat center;
+  background-size: cover;
+  // min-height: 100vh;
+  // width: 100%;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+}
+
+.loginCard {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  width: 50%;
+  height: 35rem;
+  background-color: #f9fafc;
+  border-radius: 20px;
+  box-shadow: 0 5px 30px rgba(133, 133, 133, 0.1);
+
+  .div{
+    display: inline-block;
+  }
+
+  .cardLeft {
+    width: 50%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .logo {
+      height: 60px;
+      margin-bottom: 2rem;
+    }
+
+    .logoAside {
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+
+  .cardRight {
+    width: 50%;
+    padding: 3rem;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+
+    .loginTitle {
+      font-size: 1.85rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .description {
+      color: #666;
+      margin-bottom: 2rem;
+      
+      span {
+        color: #409EFF;
+      }
+    }
+  }
+  
+ .input {
+  text-align: left;
+  height: 5rem;
+  background-color: #fff;
+  position: relative;
+
+  > div {
+    .c-center();
+    width: 90%;
+
+    i {
+      font-size: 1.85rem;
+      vertical-align: top;
+      color: #dadada;
+    }
+
+    small {
+      font-weight: 600;
+      letter-spacing: 1.15px;
+    }
+
+    input {
+      outline: none;
+      border: none;
+      height: 1.5rem;
+    }
+  }
+}
+
+  input::-webkit-input-placeholder {
+    font-size: 0.8rem;
+    color: #bbbbbb;
+  }
+
+  .iconColor{
+    color: #f3cc9a !important;
+  }
+  .adiconColor{
+    color: #f39a9a !important;
+  }
+}
